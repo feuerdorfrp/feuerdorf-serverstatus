@@ -1,219 +1,76 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Feuerdorf RP – Serverstatus</title>
-  <style>
-    :root{
-      --bg:#0f1115;
-      --card:#171a21;
-      --line:#2a2f3a;
-      --text:#f5f7fb;
-      --muted:#aab2c0;
-      --green:#31d158;
-      --red:#ff453a;
-      --accent:#ff6b2c;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      background:transparent;
-      color:var(--text);
-      font-family:Inter,Segoe UI,Arial,sans-serif;
-    }
-    .card{
-      width:min(760px, 96vw);
-      background:linear-gradient(180deg,#1a1e26 0%,#12151b 100%);
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:28px;
-      box-shadow:0 18px 45px rgba(0,0,0,.35);
-    }
-    .head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding-bottom:20px;
-      border-bottom:1px solid var(--line);
-    }
-    .brand h1{
-      margin:0;
-      font-size:clamp(28px,5vw,44px);
-      letter-spacing:.02em;
-    }
-    .brand p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:11px 14px;
-      border-radius:999px;
-      background:#222731;
-      font-weight:700;
-      white-space:nowrap;
-    }
-    .dot{
-      width:12px;height:12px;border-radius:50%;
-      background:var(--red);
-      box-shadow:0 0 16px rgba(255,69,58,.55);
-    }
-    .online .dot{background:var(--green);box-shadow:0 0 16px rgba(49,209,88,.55)}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-      margin-top:20px;
-    }
-    .item{
-      padding:16px 18px;
-      background:#11141a;
-      border:1px solid var(--line);
-      border-radius:16px;
-    }
-    .label{color:var(--muted);font-size:13px;margin-bottom:5px}
-    .value{font-size:20px;font-weight:800;overflow-wrap:anywhere}
-    .players{
-      margin-top:14px;
-      padding:16px 18px;
-      background:#11141a;
-      border:1px solid var(--line);
-      border-radius:16px;
-    }
-    .players h2{margin:0 0 10px;font-size:16px}
-    .names{display:flex;flex-wrap:wrap;gap:8px}
-    .name{
-      background:#20252f;
-      border:1px solid #303744;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:14px;
-    }
-    .foot{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      margin-top:16px;
-      color:var(--muted);
-      font-size:12px;
-    }
-    .error{color:#ffb4ae}
-    @media (max-width:600px){
-      .head{align-items:flex-start;flex-direction:column}
-      .grid{grid-template-columns:1fr}
-      .card{padding:20px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feuerdorf RP – Serverstatus</title>
+<style>
+:root{--bg:#0f1115;--card:#171a21;--card2:#11141a;--line:#2a2f3a;--text:#f5f7fb;--muted:#aab2c0;--green:#31d158;--red:#ff453a;--orange:#ff7a00}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-items:center;background:transparent;color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.card{width:min(820px,96vw);background:linear-gradient(180deg,#1a1e26 0%,#12151b 100%);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 18px 45px rgba(0,0,0,.35)}
+.head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:14px}.logo{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:#232833;font-size:30px;border:1px solid var(--line)}
+h1{margin:0;font-size:clamp(28px,5vw,42px)}.sub{margin-top:4px;color:var(--muted);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.badge{display:inline-flex;align-items:center;gap:9px;padding:11px 14px;border-radius:999px;background:#222731;font-weight:800}.dot{width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:0 0 14px rgba(255,69,58,.55)}.online .dot{background:var(--green);box-shadow:0 0 14px rgba(49,209,88,.55)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.item,.players,.connect,.event{padding:15px 17px;background:var(--card2);border:1px solid var(--line);border-radius:16px}
+.label{color:var(--muted);font-size:13px;margin-bottom:5px}.value{font-size:20px;font-weight:800;overflow-wrap:anywhere}.usage{margin-top:10px;height:10px;background:#252b35;border-radius:99px;overflow:hidden}.usage>div{height:100%;width:0%;background:linear-gradient(90deg,var(--green),var(--orange));transition:width .35s ease}
+.connect,.event{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.serveraddr{font-weight:800;overflow-wrap:anywhere}
+button{border:0;border-radius:11px;padding:10px 13px;background:#2a303b;color:var(--text);font-weight:700;cursor:pointer;white-space:nowrap}button:hover{background:#343b48}
+.eventpill{padding:8px 11px;border-radius:999px;background:#20252f;border:1px solid #303744;font-size:13px;font-weight:700}.players{margin-top:14px}.players h2{margin:0 0 10px;font-size:16px}.names{display:flex;flex-wrap:wrap;gap:8px}.name{background:#20252f;border:1px solid #303744;padding:7px 10px;border-radius:999px;font-size:14px}
+.foot{display:flex;justify-content:space-between;gap:12px;margin-top:15px;color:var(--muted);font-size:12px}.error{color:#ffb4ae}
+@media(max-width:650px){.head,.connect,.event{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.card{padding:18px}button{width:100%}}
+</style>
 </head>
 <body>
-  <main class="card">
-    <div class="head">
-      <div class="brand">
-        <h1>🚒 Feuerdorf RP</h1>
-        <p>Serverstatus</p>
-      </div>
-      <div id="statusBadge" class="badge">
-        <span class="dot"></span>
-        <span id="statusText">Prüfe Server …</span>
-      </div>
-    </div>
+<main class="card">
+<div class="head">
+  <div class="brand"><div class="logo">🚒</div><div><h1 id="serverName">Feuerdorf RP</h1><div class="sub">LS25 Roleplay Server</div></div></div>
+  <div id="statusBadge" class="badge"><span class="dot"></span><span id="statusText">Prüfe Server …</span></div>
+</div>
 
-    <section class="grid">
-      <div class="item"><div class="label">Spieler</div><div id="players" class="value">– / –</div></div>
-      <div class="item"><div class="label">Karte</div><div id="map" class="value">–</div></div>
-      <div class="item"><div class="label">Spiel</div><div id="game" class="value">Farming Simulator 25</div></div>
-      <div class="item"><div class="label">Version</div><div id="version" class="value">–</div></div>
-    </section>
+<section class="grid">
+  <div class="item"><div class="label">Spieler</div><div id="players" class="value">– / –</div><div class="usage"><div id="usageBar"></div></div></div>
+  <div class="item"><div class="label">Karte</div><div id="map" class="value">–</div></div>
+  <div class="item"><div class="label">Spiel</div><div id="game" class="value">Farming Simulator 25</div></div>
+  <div class="item"><div class="label">Version</div><div id="version" class="value">–</div></div>
+</section>
 
-    <section class="players">
-      <h2>Aktive Spieler</h2>
-      <div id="playerNames" class="names"><span class="name">Noch keine Daten</span></div>
-    </section>
+<section class="connect">
+  <div><div class="label">Serveradresse</div><div id="serverAddress" class="serveraddr">feuerdorf-rp.xrealm.gg:20720</div></div>
+  <button id="copyBtn" onclick="copyAddress()">Adresse kopieren</button>
+</section>
 
-    <div class="foot">
-      <span>Automatische Aktualisierung alle 30 Sekunden</span>
-      <span id="lastUpdate">Noch nicht aktualisiert</span>
-    </div>
-  </main>
+<section class="event">
+  <div><div class="label">RP-/Eventstatus</div><div class="value" style="font-size:17px">Regulärer Serverbetrieb</div></div>
+  <div class="eventpill">🟠 Feuerdorf RP</div>
+</section>
 
-  <script>
-    // HIER DEINE CLOUDFLARE-WORKER-URL EINTRAGEN:
-    const STATUS_PROXY_URL = "https://restless-hall-b676.feuerdorf-rp1-0.workers.dev";
+<section class="players"><h2>Aktive Spieler</h2><div id="playerNames" class="names"><span class="name">Noch keine Daten</span></div></section>
+<div class="foot"><span>Automatische Aktualisierung alle 30 Sekunden</span><span id="lastUpdate">Noch nicht aktualisiert</span></div>
+</main>
 
-    const $ = id => document.getElementById(id);
-
-    function setOnline(online, text) {
-      $("statusBadge").classList.toggle("online", online);
-      $("statusText").textContent = text;
-    }
-
-    function attr(node, name, fallback="–") {
-      return node?.getAttribute(name) || fallback;
-    }
-
-    async function updateStatus() {
-      try {
-        if (STATUS_PROXY_URL.includes("DEIN-WORKER")) {
-          throw new Error("Worker-URL noch nicht eingetragen");
-        }
-
-        const response = await fetch(STATUS_PROXY_URL, { cache: "no-store" });
-        if (!response.ok) throw new Error("HTTP " + response.status);
-
-        const xmlText = await response.text();
-        const xml = new DOMParser().parseFromString(xmlText, "application/xml");
-        if (xml.querySelector("parsererror")) throw new Error("Ungültige XML-Antwort");
-
-        const server = xml.querySelector("Server");
-        const slots = xml.querySelector("Slots");
-        if (!server || !slots) throw new Error("Serverdaten fehlen");
-
-        const activePlayers = [...xml.querySelectorAll("Player")]
-          .filter(p => p.getAttribute("isUsed") === "true")
-          .map(p => (p.textContent || "").trim())
-          .filter(Boolean);
-
-        $("players").textContent = `${activePlayers.length} / ${attr(slots, "capacity", "–")}`;
-        $("map").textContent = attr(server, "mapName", "Unbekannt");
-        $("game").textContent = attr(server, "game", "Farming Simulator 25");
-        $("version").textContent = attr(server, "version", "–");
-
-        $("playerNames").innerHTML = activePlayers.length
-          ? activePlayers.map(name => `<span class="name">${escapeHtml(name)}</span>`).join("")
-          : `<span class="name">Niemand online</span>`;
-
-        setOnline(true, "ONLINE");
-        $("lastUpdate").textContent = "Stand: " + new Date().toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit", second:"2-digit"});
-        $("lastUpdate").classList.remove("error");
-      } catch (err) {
-        setOnline(false, "OFFLINE");
-        $("players").textContent = "– / –";
-        $("map").textContent = "–";
-        $("version").textContent = "–";
-        $("playerNames").innerHTML = `<span class="name">Keine Verbindung</span>`;
-        $("lastUpdate").textContent = err.message;
-        $("lastUpdate").classList.add("error");
-      }
-    }
-
-    function escapeHtml(value) {
-      return value.replace(/[&<>"']/g, c => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[c]));
-    }
-
-    updateStatus();
-    setInterval(updateStatus, 30000);
-  </script>
+<script>
+const STATUS_PROXY_URL="https://restless-hall-b676.feuerdorf-rp1-0.workers.dev";
+const SERVER_ADDRESS="feuerdorf-rp.xrealm.gg:20720";
+const $=id=>document.getElementById(id);
+function setOnline(online,text){$("statusBadge").classList.toggle("online",online);$("statusText").textContent=text}
+function attr(node,name,fallback="–"){return node?.getAttribute(name)||fallback}
+function escapeHtml(value){return value.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+async function copyAddress(){try{await navigator.clipboard.writeText(SERVER_ADDRESS);$("copyBtn").textContent="Kopiert ✓";setTimeout(()=>$("copyBtn").textContent="Adresse kopieren",1800)}catch{$("copyBtn").textContent=SERVER_ADDRESS}}
+async function updateStatus(){
+try{
+ const response=await fetch(STATUS_PROXY_URL,{cache:"no-store"}); if(!response.ok) throw new Error("HTTP "+response.status);
+ const xmlText=await response.text(); const xml=new DOMParser().parseFromString(xmlText,"application/xml"); if(xml.querySelector("parsererror")) throw new Error("Ungültige XML-Antwort");
+ const server=xml.querySelector("Server"),slots=xml.querySelector("Slots"); if(!server||!slots) throw new Error("Serverdaten fehlen");
+ const activePlayers=[...xml.querySelectorAll("Player")].filter(p=>p.getAttribute("isUsed")==="true").map(p=>(p.textContent||"").trim()).filter(Boolean);
+ const capacity=parseInt(attr(slots,"capacity","0"))||0,used=activePlayers.length,percent=capacity?Math.min(100,(used/capacity)*100):0;
+ $("serverName").textContent=attr(server,"name","Feuerdorf RP"); $("players").textContent=`${used} / ${capacity||"–"}`; $("usageBar").style.width=percent+"%";
+ $("map").textContent=attr(server,"mapName","Unbekannt"); $("game").textContent=attr(server,"game","Farming Simulator 25"); $("version").textContent=attr(server,"version","–");
+ $("playerNames").innerHTML=activePlayers.length?activePlayers.map(name=>`<span class="name">${escapeHtml(name)}</span>`).join(""):`<span class="name">Niemand online</span>`;
+ setOnline(true,"ONLINE"); $("lastUpdate").textContent="Stand: "+new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",second:"2-digit"}); $("lastUpdate").classList.remove("error");
+}catch(err){setOnline(false,"OFFLINE");$("players").textContent="– / –";$("usageBar").style.width="0%";$("map").textContent="–";$("version").textContent="–";$("playerNames").innerHTML=`<span class="name">Keine Verbindung</span>`;$("lastUpdate").textContent=err.message;$("lastUpdate").classList.add("error")}
+}
+updateStatus(); setInterval(updateStatus,30000);
+</script>
 </body>
 </html>
